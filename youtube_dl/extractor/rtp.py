@@ -35,7 +35,6 @@ class RTPIE(InfoExtractor):
 						r'(?s)RTPPlayer\(({.+?})\);', webpage,
 						'player config'), video_id, js_to_json)
 				file_url = config['file']
-				print(config)
 				ext = determine_ext(file_url)
 				if ext == 'm3u8':
 						formats = self._extract_m3u8_formats(
