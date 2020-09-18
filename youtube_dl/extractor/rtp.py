@@ -35,17 +35,21 @@ class RTPIE(InfoExtractor):
 						r'(?s)RTPPlayer\(({.+?})\);', webpage,
 						'player config'), video_id, js_to_json)
 				file_url = config['file']
+				print(config)
 				ext = determine_ext(file_url)
 				if ext == 'm3u8':
-						file_key = config.get('fileKey')
 						formats = self._extract_m3u8_formats(
-								file_url, video_id, 'mp4', 'm3u8_native',
-								m3u8_id='hls', fatal=file_key)
-						if file_key:
-								formats.append({
-										'url': 'https://streaming-ondemand.rtp.pt' + file_key,
-										'preference': 1,
-								})
+							file_url, video_id, 'mp4', 'm3u8_native',
+							m3u8_id='hls')
+						#file_key = config.get('fileKey')
+						#formats = self._extract_m3u8_formats(
+						#		file_url, video_id, 'mp4', 'm3u8_native',
+						#		m3u8_id='hls', fatal=file_key)
+						#if file_key:
+						#		formats.append({
+						#				'url': 'https://streaming-ondemand.rtp.pt' + file_key,
+						#				'preference': 1,
+						#		})
 						self._sort_formats(formats)
 				else:
 						formats = [{
