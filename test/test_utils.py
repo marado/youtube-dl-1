@@ -862,7 +862,7 @@ class TestUtil(unittest.TestCase):
 
     def test_escape_url(self):
         self.assertEqual(
-            escape_url('http://wowza.imust.org/srv/vod/telemb/new/UPLOAD/UPLOAD/20224_IncendieHavré_FD.mp4'),
+            escape_url('http://wowza.imust.org/srv/vod/telemb/new/UPLOAD/UPLOAD/20224_IncendieHavré_FD.mp4'),
             'http://wowza.imust.org/srv/vod/telemb/new/UPLOAD/UPLOAD/20224_IncendieHavre%CC%81_FD.mp4'
         )
         self.assertEqual(
@@ -919,34 +919,6 @@ class TestUtil(unittest.TestCase):
 
         inp = '''{segments: [{"offset":-3.885780586188048e-16,"duration":39.75000000000001}]}'''
         self.assertEqual(js_to_json(inp), '''{"segments": [{"offset":-3.885780586188048e-16,"duration":39.75000000000001}]}''')
-
-        inp = '''{
-            foo: "value",
-            // bar: { nested:'x' },
-            bar: { nested:'x' },
-            chaff: "something"
-        }'''
-        self.assertEqual(js_to_json(inp), '''{
-            "foo": "value",
-
-            "bar": { "nested":"x" },
-            "chaff": "something"
-        }''')
-
-        inp = '''{
-            id: "player_prog",
-            googleCast: true,
-            //extraSettings: { googleCastReceiverAppId:'1A6F2224', skin:'s3',  skinAccentColor: '0073FF'},
-            extraSettings: { googleCastReceiverAppId:'1A6F2224'},
-            mediaType: "video",
-        }'''
-        self.assertEqual(js_to_json(inp), '''{
-            "id": "player_prog",
-            "googleCast": true,
-
-            "extraSettings": { "googleCastReceiverAppId":"1A6F2224"},
-            "mediaType": "video"
-        }''')
 
     def test_js_to_json_edgecases(self):
         on = js_to_json("{abc_def:'1\\'\\\\2\\\\\\'3\"4'}")
